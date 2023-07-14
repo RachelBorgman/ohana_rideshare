@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Request Ride</title>
+</head>
+<body>
+    <div id="header">
+        <h1>Request a Ride</h1>
+        <div class="header_links">
+            <a href="/dashboard">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="request_form">
+        <form action="/request" method="POST">
+            <div id="request_form">
+                <input type="hidden" name="rider" value="{{session['user_id']}}">
+                <div>
+                    <label for="destination">Destination:</label>
+                    <input type="text" name="destination">
+                </div>
+                <div class="space"></div>
+                <div>
+                    <label for="pick_up_loc">Pick-Up Location:</label>
+                    <input type="text" name="pick_up_loc">
+                </div>
+                <div class="space"></div>
+                <div>
+                    <label for="ride_date">Rideshare Date:</label>
+                    <input type="date" name="ride_date">
+                </div>
+                <div class="space"></div>
+                <div>
+                    <label for="details">Details:</label>
+                    <textarea name="details" id="" cols="50" rows="20" name="details"></textarea>
+                </div>
+                <div class="space"></div>
+                <input type="submit" value="Post">
+            </div>
+        </form> 
+    </div>
+{% with messages = get_flashed_messages(category_filter=['ride']) %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</body>
+</html>

@@ -1,0 +1,81 @@
+#container{
+    display: flex;
+    margin: 30px;
+    justify-content: space-around;
+
+}
+h2{
+    font-size: 2.8em;
+    margin-bottom:20px;
+}
+#register_box{
+    background-color: black;
+    color: white;
+    height: 550px;
+    width: 35%;
+    text-align: center;
+}
+#login_box{
+    background-color: blue;
+    color: white;
+    height: 550px;
+    width: 35%;
+    text-align: center;
+}
+/* .login_username{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.login_email{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.login_password{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+} */
+.space{
+    height: 20px;
+}
+label{
+    font-size: 1.5em;
+}
+.flash{
+    color:red;
+    font-size: 1.2em;
+    margin:0;
+}
+#header{
+    display:flex;
+    justify-content: space-between;
+}
+.right_header a{
+    margin: 20px;
+}
+/* .request_box{
+    padding: 10px;
+    height: auto;
+    width: 90%;
+    /* display:flex;
+    justify-content: space-between; }*/
+
+.booked_drives{
+    border: 2px solid black;
+    padding: 10px;
+    height: auto;
+    width: 90%;
+}
+#body{
+    display:flex;
+    justify-content: space-around;
+}
+.un_booked_drives{
+    border: 2px solid black;
+    padding: 10px;
+    height: auto;
+    width: 90%;
+}

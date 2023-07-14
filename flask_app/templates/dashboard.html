@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div id="header">
+        <div class="left_header">
+            <h3>Welcome, {{session['first_name']}}</h3>
+        </div>
+        <div class="right_header">
+            <a href="/request_ride">Request a Ride</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </div>
+    <hr>
+    <div id="body">
+        <div class="left_container">
+            <h2>Rideshare Requests</h2>
+            <div class="request_box">
+                {% for one_ride in all_rides: %}
+                    {% if one_ride.driver == None: %}
+                    <div class="un_booked_drives">
+                        <div class="rider">
+                            <p>Rider:               {{one_ride.rider.first_name}}</p>
+                        </div>
+                        <div class="destination">
+                            <p>Destination:         {{one_ride.destination}}</p>
+                        </div>
+                        <div class="date_info">
+                            <p>Date:                {{one_ride.ride_date.date()}}</p>
+                        </div>
+                        <div class="links">
+                            {% if one_ride.rider.id == session['user_id']: %}
+                                <a href="/delete/{{one_ride.id}}">DELETE</a>
+                                <div class="space"></div>
+                            {% endif %}
+                            <form action="/request_to_drive/{{ one_ride.id }}", method="post">
+                                <input type="hidden" name="id" value="{{one_ride.id}}">
+                                <input type="hidden" name="driver" value="{{session['user_id']}}">
+                                <input type="submit" value="I can drive!">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="left_container">
+            <h2>Booked Rideshares</h2>
+            <div class="booked_box">
+                {% for one_ride in all_rides: %}
+                    {% if one_ride.driver != None: %}
+                        {% if one_ride.driver.first_name != session['first_name']: %}
+                        <div class="booked_drives">
+                            <p>{{one_ride.driver.first_name}} is driving {{one_ride.rider.first_name}} to {{one_ride.destination}} on {{one_ride.ride_date.date()}}</p>
+                            {% if one_ride.rider.first_name == session['first_name']: %}
+                                <a href="/ride_details/{{one_ride.id}}">Details</a>
+                            {% endif %}
+                            <div class="space"></div>
+                        </div>
+                        <div class="space"></div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="booked_box">
+                {% for one_ride in all_rides: %}
+                    {% if one_ride.driver.first_name == session['first_name']: %}
+                    <div class="booked_drives">
+                        <p>You are driving {{one_ride.rider.first_name}} to {{one_ride.destination}} on {{one_ride.ride_date.date()}}</p>
+                        <a href="/ride_details/{{one_ride.id}}">Details</a>
+                        {% if one_ride.driver.id == session['user_id']: %}
+                            <a href="/cancel_drive/{{one_ride.id}}">Cancel</a>
+                        {% endif %}
+                    </div>
+                    <div class="space"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

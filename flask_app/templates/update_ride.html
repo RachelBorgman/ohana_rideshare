@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Update Ride</title>
+</head>
+<body>
+    <div class="header_box">
+        <h1>Update the Details!</h1>
+        <div class="header_links">
+            <a href="/dashboard">home</a>
+            <a href="/logout">logout</a>
+        </div>
+    </div>
+    <div class="update_form">
+        <form action="/update_ride/{{ride.id}}" method="POST">
+            <div id="create_form">
+                <input type="hidden" name="id" value="{{ride.id}}">
+                <input type="hidden" name="rider" value="{{ride.rider}}">
+                <div>
+                    <label for="pick_up_loc">Pick-up Location: {{ride.pick_up_loc}}</label>
+                    <input type="text" name="pick_up_loc" value="{{ride.pick_up_loc}}">
+                </div>
+                <div class="space"></div>
+                <div>
+                    <label for="details">Details:</label>
+                    <textarea name="details" id="" cols="50" rows="10" name="details" value="{{ride.details}}">{{ride.details}}</textarea>
+                </div>
+                <div class="space"></div>
+                <input type="submit" value="Update Recipe">
+            </div>
+        </form> 
+
+{% with messages = get_flashed_messages(category_filter=['ride']) %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    </div>
+</body>
+</html>
